@@ -20,6 +20,7 @@ const port =process.env.PORT || 4600
 const server = http.createServer(app);
 const corsOptions = {
   origin: [
+      'https://lilithbe.github.io/',
     'http://www.lilith.co.kr',
     'http://lilith.co.kr',
     'http://localhost',
