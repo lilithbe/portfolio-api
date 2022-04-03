@@ -41,4 +41,5 @@ app.use('/api',route)
 server.listen(port, () => {
     console.log(`url : ${process.env.DEV_PROTOCOL}://${process.env.DEV_DOMEIN}:${port}`
     );
+    console.log(corsOptions.origin)
 })
