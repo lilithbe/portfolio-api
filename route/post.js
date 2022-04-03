@@ -2,7 +2,7 @@ import express from 'express'
 import { model } from '../db'
 import jwt from "jsonwebtoken";
 const route=express.Router()
-route.post('/test',(req,res)=>{
+route.get('/test',(req,res)=>{
     console.log(req.body)
     res.status(200).json({test:'test'})
 })
