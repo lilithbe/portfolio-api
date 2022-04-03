@@ -4,7 +4,14 @@ import cors from 'cors'
 import env from 'dotenv'
 import http from 'http'
 
+import { connectDB } from './db'
+
 env.config()
+
+connectDB()
+
+
+
 
 const app = express();
 const port =process.env.DEV_PORT || 4600
@@ -14,17 +21,10 @@ const server = http.createServer(app);
 const corsOptions = {
   origin: [
     'http://www.lilith.co.kr',
-    'http://www.lilith.co.kr:3120',
-    'http://www.lilith.co.kr:3000',
-    'http://www.lilith.co.kr:80',
     'http://lilith.co.kr',
     'http://localhost',
     'http://localhost:80',
-    'http://localhost:3120',
     'http://localhost:3000',
-    'http://localhost:3001',
-    'http://localhost:3002',
-    'http://localhost:5001',
   ],
   credentials: true,   
   methods:["GET","POST"], 
