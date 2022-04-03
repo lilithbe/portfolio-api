@@ -19,6 +19,7 @@ module.exports = route
 const Create = async (req,res)=>{
   try {
     const userData = jwt.verify(req.headers.authorization, process.env.SECRET_KEY) //토큰검증및 유저정보
+    console.log({...req.body,...userData,createdAt: new Date(),updatedAt:new Date()})
     await model('post').create({...req.body,...userData,createdAt: new Date(),updatedAt:new Date()}).then((data)=>{
         data.status=true
             res.status(200).json(data)
