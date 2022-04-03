@@ -14,7 +14,7 @@ connectDB()
 
 
 const app = express();
-const port =process.env.DEV_PORT || 4600
+const port =process.env.PORT || 4600
 
 
 const server = http.createServer(app);
