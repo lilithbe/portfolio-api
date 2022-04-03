@@ -38,6 +38,6 @@ app.use(express.urlencoded({limit: '500mb', extended: true}));
 app.use('/api',route)
 
 server.listen(port, () => {
-    console.log(`url : ${process.env.DEV_PROTOCOL}://${process.env.DEV_DOMEIN}:${process.env.DEV_PORT}`
+    console.log(`url : ${process.env.DEV_PROTOCOL}://${process.env.DEV_DOMEIN}:${port}`
     );
 })
