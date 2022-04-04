@@ -13,6 +13,7 @@ route.post('/get-all',(req,res)=>getPostAll(req,res))
 route.post('/get-category',(req,res)=>getPostCategory(req,res))
 route.post('/get-one',(req,res)=>getPostOne(req,res))
 route.post('/get-search',(req,res)=>getPostSearch(req,res))
+route.post('/get-my-post',(req,res)=>getMyPost(req,res))
 module.exports = route
 
 // 생성
@@ -30,7 +31,8 @@ const Create = async (req,res)=>{
 }
 // 수정
 const Update = async (req,res)=>{
-    await model('post').updateOne({...req.body,updatedAt:new Date()}).then((data)=>{
+    await model('post').findOneAndUpdate({_id:req.body._id},{...req.body,updatedAt:new Date()}).then((data)=>{
+        console.log(data)
         data.status=true
             res.status(200).json(data)
         })
@@ -43,6 +45,13 @@ const Delete = async (req,res)=>{
         })
 }
 const getPostAll = async (req,res)=>{
+    await model('post').find(req.body).then((data)=>{
+               data.status=true
+            res.status(200).json(data)
+        })
+}
+
+const getMyPost = async (req,res)=>{
     await model('post').find(req.body).then((data)=>{
                data.status=true
             res.status(200).json(data)

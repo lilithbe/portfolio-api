@@ -33,7 +33,11 @@ const idCheck=async(req,res)=>{
 }
 const signUp=async(req,res)=>{
     try {
+        // TODO:정규식
         if(req.body.confirmPassword === req.body.password){
+
+
+            
             await model('account').findOne({userId:req.body.userId}).then((user)=>{
                 if(user){
                     res.status(200).json({status:false,message:'아이디가 동일한 계정이 있습니다.'})
@@ -69,9 +73,33 @@ const signUp=async(req,res)=>{
 }
 
 const signIn=async(req,res)=>{
-    await model('account').findOne(req.body).then((data)=>{
-        res.status(200).json({data,status:true})
-    })
+    try {
+        await model('account').findOne({userId:req.body.userId}).then((user)=>{
+            if(user){
+                if (bcrypt.compareSync(req.body.password, user.password)) {
+                    const getData = {...user._doc,
+                    }
+                    delete getData.password
+                    let token = jwt.sign(
+                        {
+                            ...getData,
+                            exp: Math.floor(Date.now()/1000) + tokenTime,
+                            iat: Math.floor(Date.now()/1000),
+                        },
+                        process.env.SECRET_KEY
+                    );
+                    res.status(200).json({...getData,token:token,status:true})
+                }else{
+                    res.status(200).json({status:false,message:'비밀번호가 틀립니다. 다시 확인해주세요.'})
+                }
+            }else{
+                res.status(200).json({status:false,message:'입력한 아이디를 찾을수 없습니다.'})
+            }  
+        })
+    } catch (error) {
+        res.status(200).json({status:false,message:'Error',error:error})
+    }
+   
 }
 
 const setProfile=async(req,res)=>{

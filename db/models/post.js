@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose ,{Schema} from "mongoose";
 export const Comment_model = new mongoose.Schema({
     targetId:{type:String},
     commentType:{type:String},
@@ -9,14 +9,15 @@ export const Comment_model = new mongoose.Schema({
     updatedAt:{type:Date}
 })
 export const Post_model = new mongoose.Schema({
-    thumbnail: [String],
+    thumbnail: [Schema.Types.Mixed],
     subject:{type:String},
     content:{type:String},
     userId:{type:String},
     nickName:{type:String},
     userImage:{type:String},
     category:{type:String,},
-    tag: [String],
+    stacks: [Schema.Types.Mixed],
+    tag: [Schema.Types.Mixed],
     good:{type:Number,default:0},
     hit:{type:Number,default:0},
     createdAt:{type:Date},
